@@ -105,6 +105,7 @@ int main() {
 
 	delete polyAbsPt; // IMPORTANT: we need to delete the object before we end or we loose reference to the object
 
+
 	/********************************************
 	 *    Composition & Aggregation
 	 ********************************************/
