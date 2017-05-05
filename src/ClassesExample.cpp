@@ -9,6 +9,8 @@
 #include <iostream>
 
 #include "AllClasses.h"
+#include "nonVirtualDestructor.cpp"
+#include "VirtualDestructor.cpp"
 using namespace std;
 
 int main() {
@@ -51,13 +53,17 @@ int main() {
 	/********************************************
 	 *    Derived class example
 	 ********************************************/
-	SonFromConcrete son_A("Son A", "Given son A");
+	SonFromConcrete son_A("Son A", "Given by son A");
 
 	cout << "Using son object A" << endl;
 	cout << "Father name: " << son_A.getFatherName() << ", Given Name: " << son_A.getGivenName()
 			<< ", Son's Name: " << son_A.getName() << ", Son's Name Virtual: " << son_A.getNameVirtual()<< endl;
 	cout << endl;
 
+	string name = "Pepe";
+	SonFromConcrete son_Pepe(name, "given by pepe");
+	name = "Ton";
+	cout << "Son Pepe name: " << son_Pepe.getName() << endl << endl;
 
 	/********************************************
 	 *    Polymorphism Example
@@ -80,7 +86,7 @@ int main() {
 	/********************************************
 	 *    Polymorphism with abstract class. Working with references
 	 ********************************************/
-	SonFromAbstract sonAbs("Son Abs", "Given son Abs");
+	SonFromAbstract sonAbs("Son Abs", "Given by son Abs");
 	FatherAbstract &polyAbs = sonAbs;
 
 	cout << "Using Polymorphism with references: abstract class" << endl;
@@ -97,7 +103,7 @@ int main() {
 	 ********************************************/
 	FatherAbstract *polyAbsPt;
 
-	polyAbsPt = new SonFromAbstract("Son Abs pointer", "Given son Abs");
+	polyAbsPt = new SonFromAbstract("Son Abs pointer", "Given by son Abs");
 	cout << "Using Polymorphism with pointers: abstract class" << endl;
 	cout << "POLYM Father name: " << polyAbsPt->getFatherName() << ", Given Name: " << polyAbsPt->getGivenName()
 			<< ", Son's Name: " << polyAbsPt->getName() << ", Son's Name Virtual: " << polyAbsPt->getNameVirtual()<< endl;
@@ -110,18 +116,36 @@ int main() {
 	 *    Composition & Aggregation
 	 ********************************************/
 
-	ComposeAggregate *c = new ComposeAggregate("Composed", "Given composed");
+	ComposeAggregate *cp = new ComposeAggregate("Composed", "Given composed");
+	ComposeAggregate cc("Composed 2", "Given Composed 2");
 
 	FatherAbstract * agg = new SonFromAbstract("Aggregated", "Given aggregated");
-	c->setAggregated(agg);
+	cp->setAggregated(agg);
+	cc.setAggregated(agg);
 
-	string s("");
-	cout << c->toString(s);
+	string s("cp: ");
+	cout << cp->toString(s) << endl;
+
+	string ss("cc: ");
+	cout << cc.toString(ss);
 
 	delete agg;
-	delete c;
+	delete cp;
+
+	/***********************************************
+	 * Show virtual and non virtual destructors
+	 * 		The recommendation is to use virtual destructors
+	 ***********************************************/
+	cout << endl << endl << "Showing NON virtual destructor. Observe that it is only called the base destructor and not the derived even the object is from the derived class" << endl;
+
+	BaseNoVirtual* b = new DerivedNoVirtual;     //Upcasting
+	delete b;
+
+	cout << endl << endl << "Showing NON virtual destructor. Observe that it is only called the base destructor and not the derived even the object is from the derived class" << endl;
+
+	Base* vb = new Derived;     //Upcasting
+	delete vb;
 
 
-	PrintMemoryLeakInfo();
 	return 0;
 }

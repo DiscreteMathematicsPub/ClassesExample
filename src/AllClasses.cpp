@@ -23,7 +23,7 @@ FatherConcrete::FatherConcrete() {
 
 FatherConcrete::FatherConcrete(const string & name) {
 	fatherName = "Father";
-	givenByDerivedName = name;
+	nameGivenBySon = name;
 }
 
 string FatherConcrete::getFatherName() {
@@ -31,7 +31,7 @@ string FatherConcrete::getFatherName() {
 }
 
 string FatherConcrete::getGivenName() {
-	return givenByDerivedName;
+	return nameGivenBySon;
 }
 
 string FatherConcrete::getName() {
@@ -43,7 +43,7 @@ string FatherConcrete::getNameVirtual() {
 }
 
 void FatherConcrete::setGivenName(const string &given) {
-	givenByDerivedName = given;
+	nameGivenBySon = given;
 }
 
 
@@ -54,15 +54,15 @@ void FatherConcrete::setGivenName(const string &given) {
  * *************************************************************************************************/
 
 SonFromConcrete::SonFromConcrete(const string &name, const string &givenName) : FatherConcrete(givenName) {
-	derivedName = name; //copying names. It's NOT a reference
+	sonsName = name; //copying names. It's NOT a reference
 }
 
 string SonFromConcrete::getName() {
-	return derivedName;
+	return sonsName;
 }
 
 string SonFromConcrete::getNameVirtual() {
-	return derivedName;
+	return sonsName;
 }
 
 
@@ -79,7 +79,7 @@ FatherAbstract::FatherAbstract() {
 
 FatherAbstract::FatherAbstract(const string &name) {
 	fatherName = "Father";
-	givenByDerivedName = name;
+	nameGivenBySon = name;
 }
 
 string FatherAbstract::getFatherName() {
@@ -87,7 +87,7 @@ string FatherAbstract::getFatherName() {
 }
 
 string FatherAbstract::getGivenName() {
-	return givenByDerivedName;
+	return nameGivenBySon;
 }
 
 string FatherAbstract::getName() {
@@ -106,15 +106,15 @@ string FatherAbstract::getNameVirtual() {
  * *************************************************************************************************/
 
 SonFromAbstract::SonFromAbstract(const string& name, const string& givenName) : FatherAbstract(givenName) {
-	derivedName = name; //copying names. It's NOT a reference
+	sonsName = name; //copying names. It's NOT a reference
 }
 
 string SonFromAbstract::getName() {
-	return derivedName;
+	return sonsName;
 }
 
 string SonFromAbstract::getNameVirtual() {
-	return derivedName;
+	return sonsName;
 }
 
 string SonFromAbstract::getMessage() {
@@ -131,7 +131,7 @@ string SonFromAbstract::getMessage() {
 
 //A composed member must be created in the constructor before the "{"
 ComposeAggregate::ComposeAggregate(const string &name, const string &givenName): composed(name, givenName) {
-	aggregated = NULL; // The aggregated member can be created whenever. Usually outside the class.
+	aggregated = NULL; // The aggregated member can be created wherever. Usually outside the class.
 }
 
 ComposeAggregate::~ComposeAggregate() {

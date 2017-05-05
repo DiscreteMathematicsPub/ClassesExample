@@ -10,14 +10,14 @@
 
 #include <string>
 
-#include "cppMemDbg.h"
+//#include "cppMemDbg.h"
 
 using namespace std;
 
 class FatherConcrete {
 private:
 	string fatherName;
-	string givenByDerivedName;
+	string nameGivenBySon;
 
 public:
 	FatherConcrete();
@@ -33,7 +33,7 @@ public:
 
 class SonFromConcrete: virtual public FatherConcrete { // it's recommended to derive virtually always to avoid future problems with multiple inheritance
 private:
-	string derivedName;
+	string sonsName;
 
 public:
 	SonFromConcrete(const string &name, const string &givenName);
@@ -48,7 +48,7 @@ public:
 class FatherAbstract {
 private:
 	string fatherName;
-	string givenByDerivedName;
+	string nameGivenBySon;
 
 public:
 	FatherAbstract();
@@ -64,7 +64,7 @@ public:
 
 class SonFromAbstract: virtual public FatherAbstract { // it's recommended to derive virtually always to avoid future problems with multiple inheritance
 private:
-	string derivedName;
+	string sonsName;
 
 public:
 	SonFromAbstract(const string &name, const string &givenName);
