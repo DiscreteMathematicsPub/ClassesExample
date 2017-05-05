@@ -132,16 +132,18 @@ string SonFromAbstract::getMessage() {
 //A composed member must be created in the constructor before the "{"
 ComposeAggregate::ComposeAggregate(const string &name, const string &givenName): composed(name, givenName) {
 	aggregated = NULL; // The aggregated member can be created wherever. Usually outside the class.
+	sonConcreteAggregated = new SonFromConcrete("Son created in class", "given Name");
 }
 
 ComposeAggregate::~ComposeAggregate() {
-
+	delete sonConcreteAggregated;
 }
 
 string & ComposeAggregate::toString(string & str) {
 
-	str += "Copmpose name: " + this->getComposed().getNameVirtual() + "\n";
+	str += "Compose name: " + this->getComposed().getNameVirtual() + "\n";
 	str += "Aggregated name: " + this->getAggregated()->getNameVirtual() + "\n";
+	str += "Son Aggregated name: " + this->getSonAggregated()->getNameVirtual() + "\n";
 
 	return str;
 }
@@ -154,6 +156,9 @@ SonFromAbstract & ComposeAggregate::getComposed() {
 	return composed;
 }
 
+SonFromConcrete * ComposeAggregate::getSonAggregated() {
+	return sonConcreteAggregated;
+}
 
 void ComposeAggregate::setAggregated(FatherAbstract *p) {
 	aggregated = p;

@@ -38,7 +38,7 @@ private:
 public:
 	SonFromConcrete(const string &name, const string &givenName);
 	string getName();
-	virtual string getNameVirtual();
+	string getNameVirtual();
 };
 
 
@@ -81,11 +81,13 @@ class ComposeAggregate {
 private:
 	SonFromAbstract composed; //("Son A", "Given name A");
 	FatherAbstract *aggregated;
+	SonFromConcrete *sonConcreteAggregated;
 
 public:
 	ComposeAggregate(const string &name, const string &givenName);
 	string & toString(string &str);
 	FatherAbstract * getAggregated();
+	SonFromConcrete * getSonAggregated();
 	SonFromAbstract & getComposed();
 	void setAggregated(FatherAbstract *sp);
 	~ComposeAggregate();
